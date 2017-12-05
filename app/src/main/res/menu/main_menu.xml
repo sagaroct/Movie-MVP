@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--
+      ~ /*
+      ~  * Copyright © 2016, Robosoft Technologies Pvt. Ltd
+      ~  * Written under contract by Robosoft Technologies Pvt. Ltd.
+      ~  */
+      -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<item android:id="@+id/menu_share"
+      android:title="@string/share"
+      android:icon="@android:drawable/ic_menu_share"
+      app:showAsAction="always"
+      android:orderInCategory="100"/>
+
+<item android:id="@+id/menu_settings"
+      android:title="@string/settings"
+      app:showAsAction="never"
+      android:orderInCategory="105"/>
+
+</menu>

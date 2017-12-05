@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~  * Copyright © 2016, Robosoft Technologies Pvt. Ltd
+  ~  * Written under contract by Robosoft Technologies Pvt. Ltd.
+  ~  */
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/item_top_rated"
+              android:title="@string/top_rated"
+              android:icon="@drawable/icn_menu_top_rated"/>
+
+        <item android:id="@+id/item_upcoming"
+              android:title="@string/upcoming"
+              android:icon="@drawable/icn_menu_upcoming" />
+
+        <item android:id="@+id/item_popular"
+              android:title="@string/popular"
+              android:icon="@drawable/icn_menu_popular" />
+    </group>
+</menu>

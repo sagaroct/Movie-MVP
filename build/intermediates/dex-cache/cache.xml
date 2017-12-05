@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/86ca5491a626eb95db03ae350d6dca3134f77a15/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_f1184d75a4c68c97b0afdf970293f5c81211b617.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/448be9efd7a9698bdb0fd692a33863609d216563/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a4b88325124c4bd658ae2717977668646ba9b37a">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_65231377f85c7736f3f3fb6e16958997eb39f380.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.2/43eeae0b9fb087bb3194ba59ab63a38a32fbf3e/retrofit-2.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/retrofit-2.0.2_e1d1cbbbbe818adf12c64556f183dc2d3b00393b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.google.dagger/dagger/2.9/75a739e59d7ede2f7f425f369955bdd1c2ac122b/dagger-2.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="75a739e59d7ede2f7f425f369955bdd1c2ac122b">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/dagger-2.9_52b53b5dfcd4560bd7b475b1138dfafcdce06d40.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/5a5eff1454cf76d8ab5fce106ef17979a6c7698a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_e19982c375062b826eb9305e2972fd23bd95fcda.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/d6d0ceca36558dc9a7ef6969ff0d3a4b99225f3d/output/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_9ae63aabe2b6e4bb3ae5d50bbd7cecdfbf86a471.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/4499531fa30c2bb071a77e6b6865a9753788742b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_ccf32199140a0e0069e06ae72187322e9df33096.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/io.realm/realm-annotations/2.2.2/12c92a768592dd916407f3c45644a83a7ad2b103/realm-annotations-2.2.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="12c92a768592dd916407f3c45644a83a7ad2b103">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/realm-annotations-2.2.2_58c75eb5e008d4518d2f15f0f67653d4ad0d4126.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.4.1/381fc1096ba65040d8e80ea43b2e1d9bad02345e/logging-interceptor-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="381fc1096ba65040d8e80ea43b2e1d9bad02345e">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/logging-interceptor-3.4.1_9fc21b1f3709a6f21060694788d9c9078b73fc91.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/5ee9e84b6343738c5bb86ed238e4f7de052faefb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_3de594d59b52ff5db793e061959a00bb82fd1a88.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.1/c7c4f9e35c2fd5900da24f9872e3971801f08ce0/okhttp-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/okhttp-3.4.1_47ae0aab9f534a6f463bae4cde8743b43232f933.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/javax.inject-1_e648ab9ace0925be2cf0534be2809e05f2703d62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/support-annotations-24.0.0_3fe8afef545313dd6b6e4a067d5527e4435e9862.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/d12d6a72b6c6afce42b516a2b91b78ad1fe851c3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8dd49930e4f9dde1a42d37e362b9fea8b1b69c0d">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_e0cb29b998de1ff51390f843c3b1cf5bd540787c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/aedf64021942a04133886176e4468606ea8cea9b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b64dd5f01bc37de289f90fd59299b0c76d119611">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_3e69cf022910b7285fcbea5b3e926f33deddf5e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/d3824ffd59b59627628aec7bf9704fbfe7f54619/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_06359c6e6cba356e9c982f18db330d82b446ac84.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.android/build-cache/d6d0ceca36558dc9a7ef6969ff0d3a4b99225f3d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/classes_bec9bda8fe5106dd1e8247a900b0621a76c7f13c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/okio-1.9.0_a0c2e3ae1638cd8ed53a4394937fc79dfb31295c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.1/b9d63507329a7178e026fc334f87587ee5070ac5/gson-2.6.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9d63507329a7178e026fc334f87587ee5070ac5">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/gson-2.6.1_eed9a3924fdceebadea60b1464ae36ff94e601c9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/sagar/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.0.2/f8d87f15b94b8d74e7ccf61d7eedb558811cdb30/converter-gson-2.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
+        <dex dex="/home/sagar/Android Projects/Movie_MVVM/app/build/intermediates/pre-dexed/debug/converter-gson-2.0.2_f2dddb7d37d5388d8aa47535271aaf9dbabed681.jar" />
+    </item>
+
+</items>

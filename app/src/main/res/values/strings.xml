@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="release_date">Release Date:</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="_12_10_1992">12/10/1992</string>
+    <string name="top_rated">TOP RATED</string>
+    <string name="upcoming">UPCOMING</string>
+    <string name="popular">POPULAR</string>
+    <string name="share">Share</string>
+    <string name="settings">Settings</string>
+    <string name="date_format">Date Format</string>
+    <string name="sort_date">Sort by release date</string>
+    <string name="month_day_yr">mmm-d-yyyy</string>
+    <string name="yr_month_day">yyyy-mm-d</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+
+    <string-array name="settings_array">
+        <item>@string/date_format</item>
+        <item>@string/sort_date</item>
+    </string-array>
+
+    <string-array name="date_format_array">
+        <item>@string/month_day_yr</item>
+        <item>@string/yr_month_day</item>
+    </string-array>
+
+    <string-array name="release_date_sort_array">
+        <item>@string/ascending</item>
+        <item>@string/descending</item>
+    </string-array>
+</resources>
