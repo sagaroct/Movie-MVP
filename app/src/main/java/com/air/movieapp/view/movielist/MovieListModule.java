@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.air.movieapp.adapter.MovieListAdapter;
 import com.air.movieapp.data.DatabaseHelper;
+import com.air.movieapp.data.PreferenceHelper;
 import com.air.movieapp.model.Movie;
 import com.air.movieapp.common.NetworkUtils;
 
@@ -31,8 +32,9 @@ public class MovieListModule {
     }
 
     @Provides
-    public MovieListPresenter provideMovieListPresenter(MovieListAdapter movieListAdapter, LinearLayoutManager linearLayoutManager, DatabaseHelper databaseHelper, NetworkUtils networkUtils){
-        return new MovieListPresenter(mView, movieListAdapter, linearLayoutManager, databaseHelper, networkUtils);
+    public MovieListPresenter provideMovieListPresenter(LinearLayoutManager linearLayoutManager
+            , DatabaseHelper databaseHelper, NetworkUtils networkUtils, PreferenceHelper preferenceHelper){
+        return new MovieListPresenter(mView, linearLayoutManager, databaseHelper, networkUtils, preferenceHelper);
     }
 
     @Provides

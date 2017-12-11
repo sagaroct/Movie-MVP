@@ -1,6 +1,7 @@
 package com.air.movieapp.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import javax.inject.Singleton;
 
@@ -11,6 +12,8 @@ import io.realm.Realm;
 
 @Module
 public class DataModule {
+
+    private static final String SHARED_PREFERENCE_FILE_NAME = "movie_app_pref";
 
     private Context mContext;
 
@@ -37,5 +40,17 @@ public class DataModule {
         return new DatabaseHelper(realm);
     }
 
+    @Provides
+    @Singleton
+    public SharedPreferences provideSharedPreferences() {
+        return mContext.getSharedPreferences(
+                SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    public PreferenceHelper providePreferenceHelper(SharedPreferences sharedPreferences) {
+        return new PreferenceHelper(sharedPreferences);
+    }
 
 }

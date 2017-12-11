@@ -6,6 +6,7 @@ import com.air.movieapp.view.home.HomeComponent;
 import com.air.movieapp.view.home.HomeModule;
 import com.air.movieapp.view.movielist.MovieListComponent;
 import com.air.movieapp.view.movielist.MovieListModule;
+import com.air.movieapp.view.settings.SettingsActivity;
 
 import javax.inject.Singleton;
 
@@ -17,5 +18,7 @@ public interface AppComponent {
     MovieListComponent plus(MovieListModule movieListModule);
 
     HomeComponent plus(HomeModule homeModule);
+
+     void inject(SettingsActivity settingsActivity);
 
 }

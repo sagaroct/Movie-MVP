@@ -1,5 +1,7 @@
 package com.air.movieapp.network;
 
+import android.content.SharedPreferences;
+
 import com.air.movieapp.common.NetworkUtils;
 import com.air.movieapp.common.RestConstants;
 import com.air.movieapp.data.DatabaseHelper;
@@ -18,6 +20,7 @@ public class Service {
     private NetworkUtils mNetworkUtils;
     private DatabaseHelper mDatabaseHelper;
     private CacheType mCacheType;
+    private SharedPreferences mSharedPreferences;
 
     public Service(MovieApiService movieApiService, NetworkUtils networkUtils, DatabaseHelper databaseHelper) {
         this.mMovieApiService = movieApiService;

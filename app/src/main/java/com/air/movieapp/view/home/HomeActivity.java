@@ -25,8 +25,8 @@ import com.air.movieapp.R;
 import com.air.movieapp.common.Constants;
 import com.air.movieapp.network.CacheType;
 import com.air.movieapp.network.Service;
-import com.air.movieapp.view.SettingsActivity;
 import com.air.movieapp.view.base.BaseActivity;
+import com.air.movieapp.view.settings.SettingsActivity;
 
 import javax.inject.Inject;
 
@@ -119,12 +119,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     protected void setupActivityComponent() {
-       /* DaggerHomeComponent.builder().
-        homeModule(new HomeModule(this)).
-        build().inject(this);*/
         MovieApplication.get(this).getAppComponent().plus(new HomeModule(this)).inject(this);
     }
-
 
     @Override
     public void showProgress(boolean status) {
@@ -141,21 +137,5 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void showNoInternetDialog() {
-    }
-
-    @Override
-    public void setActionBarTitle(String title) {
-    }
-
-    @Override
-    public void closeLeftDrawer() {
-    }
-
-    @Override
-    public void loadMovieFragment(String category) {
-    }
-
-    @Override
-    public void updateLeftDrawer(int position) {
     }
 }

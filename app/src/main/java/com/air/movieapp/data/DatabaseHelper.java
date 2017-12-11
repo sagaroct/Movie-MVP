@@ -6,16 +6,16 @@ import java.util.List;
 
 import io.realm.Realm;
 
-/**
- * Created by shreesha on 10/1/17.
- */
-
 public class DatabaseHelper {
 
     private Realm mRealm;
 
     public DatabaseHelper(Realm mRealm) {
         this.mRealm = mRealm;
+    }
+
+    public Realm getRealm() {
+        return mRealm;
     }
 
     public void saveMovieList(String categoryName, final List<Movie> movies) {
@@ -45,4 +45,8 @@ public class DatabaseHelper {
                 .findAll();
     }
 
+
+    public void updateMovieList(List<Movie> movies){
+        mRealm.copyToRealmOrUpdate(movies);
+    }
 }

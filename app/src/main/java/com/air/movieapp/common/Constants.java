@@ -18,6 +18,13 @@ public class Constants {
     public static final String POPULAR = "popular";
     public static final int PAGE_SIZE = 20;
     public static final int SETTINGS_REQUEST_CODE = 10;
+    public static final String DATE_FORMAT = "date_format";
+    public static final String RELEASE_DATE = "release_date";
+    public static final String ASCENDING = "ascending";
+    public static final String DESCENDING = "descending";
+    public static final String MONTH_FIRST = "month_first";
+    public static final String YEAR_FIRST = "year_first";
+
 
 
 }

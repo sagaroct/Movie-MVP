@@ -20,8 +20,12 @@ import com.air.movieapp.MovieApplication;
 import com.air.movieapp.R;
 import com.air.movieapp.adapter.MovieListAdapter;
 import com.air.movieapp.common.Constants;
+import com.air.movieapp.data.PreferenceHelper;
+import com.air.movieapp.model.Movie;
 import com.air.movieapp.network.Service;
 import com.air.movieapp.view.base.BaseFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -48,6 +52,8 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
     @Inject
     Service mService;
 
+    @Inject
+    PreferenceHelper mPreferenceHelper;
 
     @Override
     public void onCreate(Bundle state) {
@@ -67,9 +73,23 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         mMoviesRecyclerView = (RecyclerView) view.findViewById(R.id.rv_movie);
-        mMovieListPresenter.initAdapter(mMoviesRecyclerView, mLinearLayoutManager);
+        mMovieListPresenter.onCreateView();
+        mMoviesRecyclerView.setAdapter(mMovieListAdapter);
+        mMovieListPresenter.initScrollListener(mMoviesRecyclerView, mLinearLayoutManager);
         mMovieListPresenter.fetchMovies(mType, mService);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMovieListPresenter.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        mMovieListPresenter.onDestroy();
+        super.onDestroy();
     }
 
     @Override
@@ -91,5 +111,35 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
 
     @Override
     public void showEmptyView() {
+    }
+
+    @Override
+    public void showList(List<Movie> movies) {
+        mMovieListAdapter.setData(movies);
+    }
+
+    @Override
+    public void addAndShowList(List<Movie> movies) {
+        mMovieListAdapter.addData(movies);
+    }
+
+    @Override
+    public void sortList(String prefValue) {
+        switch (prefValue){
+            case Constants.MONTH_FIRST:
+                break;
+            case Constants.YEAR_FIRST:
+                break;
+            case Constants.ASCENDING:
+                break;
+            case Constants.DESCENDING:
+                break;
+            default:break;
+        }
+    }
+
+    @Override
+    public void refreshList() {
+        mMovieListAdapter.notifyDataSetChanged();
     }
 }

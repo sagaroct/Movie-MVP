@@ -21,7 +21,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         void onItemClick(String string);
     }
 
-    public void setmOnItemClickListener(OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 

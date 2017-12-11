@@ -1,9 +1,8 @@
-package com.air.movieapp.view;
+package com.air.movieapp.view.settings;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.air.movieapp.MovieApplication;
 import com.air.movieapp.R;
 import com.air.movieapp.adapter.SettingsAdapter;
 import com.air.movieapp.common.CommonUtils;
+import com.air.movieapp.common.Constants;
+import com.air.movieapp.data.PreferenceHelper;
+
+import javax.inject.Inject;
 
 /**
  * Created by sagar on 1/8/16.
@@ -24,24 +28,27 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
     private RecyclerView mRecyclerViewSettings;
-    private SharedPreferences mSharedPreferences;
     private SettingsAdapter mSettingsAdapter;
     private Toolbar mToolbar;
+
+    @Inject
+    PreferenceHelper mPreferenceHelper;
+    private SharedPreferences.OnSharedPreferenceChangeListener mSharedePreferenceListener;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        MovieApplication.get(this).getAppComponent().inject(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle(getString(R.string.settings));
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
         mRecyclerViewSettings = (RecyclerView) findViewById(R.id.rv_settings);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerViewSettings.setLayoutManager(mLayoutManager);
         mSettingsAdapter = new SettingsAdapter(getResources().getStringArray(R.array.settings_array));
-        mSettingsAdapter.setmOnItemClickListener(this);
+        mSettingsAdapter.setOnItemClickListener(this);
         mRecyclerViewSettings.setAdapter(mSettingsAdapter);
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,16 +71,36 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
 
     @Override
     public void onItemClick(String string) {
+        openSettingsPopup(string);
+    }
+
+    private void openSettingsPopup(String string) {
+        int dateFormatPref = mPreferenceHelper.getSharedpreferences().getString(Constants.DATE_FORMAT, Constants.MONTH_FIRST)
+                .equals(Constants.MONTH_FIRST)
+                ? 0 : 1;
+        int releaseDateSortPref = mPreferenceHelper.getSharedpreferences().getString(Constants.RELEASE_DATE, Constants.ASCENDING)
+                .equals(Constants.ASCENDING)
+                ? 0 : 1;
         if (string.equals(getString(R.string.date_format))) {
-            CommonUtils.showDialogToChangeDateFormat(SettingsActivity.this, getString(R.string.date_format), getDateFormatCharSequences(), new DialogInterface.OnClickListener() {
+            CommonUtils.showDialogToChangeDateFormat(SettingsActivity.this, getString(R.string.date_format), getDateFormatCharSequences(), dateFormatPref, new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                public void onClick(DialogInterface dialogInterface, int pos) {
+                    if(pos == 0){
+                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.DATE_FORMAT, Constants.MONTH_FIRST).commit();
+                    }else{
+                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.DATE_FORMAT, Constants.YEAR_FIRST).commit();
+                    }
                 }
             });
         } else {
-            CommonUtils.showDialogToChangeDateFormat(SettingsActivity.this, getString(R.string.sort_date), getSortReleaseDateCharSequences(), new DialogInterface.OnClickListener() {
+            CommonUtils.showDialogToChangeDateFormat(SettingsActivity.this, getString(R.string.sort_date), getSortReleaseDateCharSequences(), releaseDateSortPref, new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                public void onClick(DialogInterface dialogInterface, int pos) {
+                    if(pos == 0){
+                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.RELEASE_DATE, Constants.ASCENDING).commit();
+                    }else{
+                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.RELEASE_DATE, Constants.DESCENDING).commit();
+                    }
                 }
             });
         }
