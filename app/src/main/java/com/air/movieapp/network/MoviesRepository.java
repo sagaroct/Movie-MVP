@@ -14,7 +14,7 @@ import java.util.List;
  * Created by sagar on 4/8/17.
  */
 
-public class Service {
+public class MoviesRepository {
 
     private MovieApiService mMovieApiService;
     private NetworkUtils mNetworkUtils;
@@ -22,7 +22,7 @@ public class Service {
     private CacheType mCacheType;
     private SharedPreferences mSharedPreferences;
 
-    public Service(MovieApiService movieApiService, NetworkUtils networkUtils, DatabaseHelper databaseHelper) {
+    public MoviesRepository(MovieApiService movieApiService, NetworkUtils networkUtils, DatabaseHelper databaseHelper) {
         this.mMovieApiService = movieApiService;
         this.mNetworkUtils = networkUtils;
         this.mDatabaseHelper = databaseHelper;

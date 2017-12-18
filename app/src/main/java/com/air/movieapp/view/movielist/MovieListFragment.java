@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.air.movieapp.MovieApplication;
 import com.air.movieapp.R;
@@ -22,7 +24,7 @@ import com.air.movieapp.adapter.MovieListAdapter;
 import com.air.movieapp.common.Constants;
 import com.air.movieapp.data.PreferenceHelper;
 import com.air.movieapp.model.Movie;
-import com.air.movieapp.network.Service;
+import com.air.movieapp.network.MoviesRepository;
 import com.air.movieapp.view.base.BaseFragment;
 
 import java.util.List;
@@ -38,6 +40,7 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
 
     private ProgressBar mProgressBar;
     private RecyclerView mMoviesRecyclerView;
+    private TextView mTvEmptyView;
     private String mType;
 
     @Inject
@@ -50,7 +53,7 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
     LinearLayoutManager mLinearLayoutManager;
 
     @Inject
-    Service mService;
+    MoviesRepository mMoviesRepository;
 
     @Inject
     PreferenceHelper mPreferenceHelper;
@@ -73,10 +76,11 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         mMoviesRecyclerView = (RecyclerView) view.findViewById(R.id.rv_movie);
+        mTvEmptyView = (TextView) view.findViewById(R.id.tv_empty_view);
         mMovieListPresenter.onCreateView();
         mMoviesRecyclerView.setAdapter(mMovieListAdapter);
         mMovieListPresenter.initScrollListener(mMoviesRecyclerView, mLinearLayoutManager);
-        mMovieListPresenter.fetchMovies(mType, mService);
+        mMovieListPresenter.fetchMovies(mType);
         return view;
     }
 
@@ -107,14 +111,18 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
 
     @Override
     public void showNoInternetDialog() {
+        Toast.makeText(getActivity(), R.string.no_internet, Toast.LENGTH_SHORT).show();
+        mTvEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showEmptyView() {
+        mTvEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showList(List<Movie> movies) {
+        mTvEmptyView.setVisibility(View.GONE);
         mMovieListAdapter.setData(movies);
     }
 

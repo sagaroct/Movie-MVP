@@ -24,7 +24,7 @@ import com.air.movieapp.MovieApplication;
 import com.air.movieapp.R;
 import com.air.movieapp.common.Constants;
 import com.air.movieapp.network.CacheType;
-import com.air.movieapp.network.Service;
+import com.air.movieapp.network.MoviesRepository;
 import com.air.movieapp.view.base.BaseActivity;
 import com.air.movieapp.view.settings.SettingsActivity;
 
@@ -46,7 +46,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     HomePresenter mHomePresenter;
 
     @Inject
-    Service service;
+    MoviesRepository moviesRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
         setNavigationDrawer();
-        service.setCacheType(CacheType.CACHE);
+        moviesRepository.setCacheType(CacheType.CACHE);
     }
 
     @Override
@@ -78,8 +78,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             case R.id.menu_share:
                 break;
             case R.id.menu_settings:
-                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
-                startActivityForResult(intent, Constants.SETTINGS_REQUEST_CODE);
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
                 break;
         }
         return true;
@@ -137,5 +136,9 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     @Override
     public void showNoInternetDialog() {
+    }
+
+    public ViewPager getViewPager() {
+        return mViewPager;
     }
 }

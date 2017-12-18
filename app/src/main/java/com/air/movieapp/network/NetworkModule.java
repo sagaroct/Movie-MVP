@@ -77,9 +77,9 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public Service providesSimpleService(
+    public MoviesRepository providesSimpleService(
             @Named("SimpleInterface") MovieApiService apiInterface, NetworkUtils networkUtils, DatabaseHelper databaseHelper) {
-        return new Service(apiInterface, networkUtils, databaseHelper);
+        return new MoviesRepository(apiInterface, networkUtils, databaseHelper);
     }
 
 

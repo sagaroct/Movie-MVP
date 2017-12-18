@@ -84,7 +84,7 @@ public class CommonUtils {
 
     public static String convertMovieDateFormatForApiResults(String strDate, String dateFormat){
         DateFormat parseDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if(dateFormat.equalsIgnoreCase(Constants.YEAR_FIRST)){
+        if(dateFormat!=null && dateFormat.equalsIgnoreCase(Constants.YEAR_FIRST)){
             dateFormat = "yyyy-MM-d";
         }else{
             dateFormat = "MMM-d-yyyy";

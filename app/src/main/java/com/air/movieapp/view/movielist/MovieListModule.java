@@ -7,6 +7,7 @@ import com.air.movieapp.data.DatabaseHelper;
 import com.air.movieapp.data.PreferenceHelper;
 import com.air.movieapp.model.Movie;
 import com.air.movieapp.common.NetworkUtils;
+import com.air.movieapp.network.MoviesRepository;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,9 @@ public class MovieListModule {
     }
 
     @Provides
-    public MovieListPresenter provideMovieListPresenter(LinearLayoutManager linearLayoutManager
+    public MovieListPresenter provideMovieListPresenter(MoviesRepository moviesRepository, LinearLayoutManager linearLayoutManager
             , DatabaseHelper databaseHelper, NetworkUtils networkUtils, PreferenceHelper preferenceHelper){
-        return new MovieListPresenter(mView, linearLayoutManager, databaseHelper, networkUtils, preferenceHelper);
+        return new MovieListPresenter(moviesRepository, mView, linearLayoutManager, databaseHelper, networkUtils, preferenceHelper);
     }
 
     @Provides

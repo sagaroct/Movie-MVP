@@ -16,7 +16,7 @@ import com.air.movieapp.model.Results;
 import com.air.movieapp.network.CacheType;
 import com.air.movieapp.network.NetworkError;
 import com.air.movieapp.network.ResponseCallback;
-import com.air.movieapp.network.Service;
+import com.air.movieapp.network.MoviesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     private MovieListContract.View mView;
     private DatabaseHelper mDatabaseHelper;
     private NetworkUtils mNetworkUtils;
-    private Service mService;
+    private MoviesRepository mMoviesRepository;
     private LinearLayoutManager mLinearLayoutManager;
     private String mCategory;
     private int mPageCount;
@@ -43,8 +43,9 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     private List<Movie> mMovies = new ArrayList<>();
 
 
-    public MovieListPresenter(MovieListContract.View mView, LinearLayoutManager linearLayoutManager
+    public MovieListPresenter(MoviesRepository moviesRepository, MovieListContract.View mView, LinearLayoutManager linearLayoutManager
             , DatabaseHelper mDatabaseHelper, NetworkUtils mNetworkUtils, PreferenceHelper preferenceHelper) {
+        this.mMoviesRepository = moviesRepository;
         this.mView = mView;
         this.mDatabaseHelper = mDatabaseHelper;
         this.mNetworkUtils = mNetworkUtils;
@@ -106,10 +107,9 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     }
 
     @Override
-    public void fetchMovies(String category, Service service) {
+    public void fetchMovies(String category) {
         mCategory = category;
-        mService = service;
-        if (mNetworkUtils.isNetworkConnected()) {
+        if (!mNetworkUtils.isNetworkConnected()) {
             mView.showNoInternetDialog();
         }
         if (TextUtils.isEmpty(category)) {
@@ -122,22 +122,26 @@ public class MovieListPresenter implements MovieListContract.Presenter {
 
     private void getMovies(final String categoryName, final int current_page) {
         mView.showProgress(true);
-        mService.setCacheType(mNetworkUtils.setCacheType(CacheType.NETWORK_AND_CACHE));
-        mService.getMovies(categoryName, current_page, new ResponseCallback<Results>() {
+        mMoviesRepository.setCacheType(mNetworkUtils.setCacheType(CacheType.NETWORK_AND_CACHE));
+        mMoviesRepository.getMovies(categoryName, current_page, new ResponseCallback<Results>() {
             @Override
             public void successFromNetwork(Results results) {
                 mView.showProgress(false);
-                results.setMovies(changeDateFormatForApiResults(results.getMovies()
-                        , mPreferenceHelper.getSharedpreferences().getString(Constants.DATE_FORMAT, Constants.MONTH_FIRST)));
-                updateMovieList(results, current_page);
-                mDatabaseHelper.saveMovieList(categoryName, results.getMovies());
+                if(results.getMovies().size()>0) {
+                    results.setMovies(changeDateFormatForApiResults(results.getMovies()
+                            , mPreferenceHelper.getStringFromSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST)));
+                    updateMovieList(results, current_page);
+                    mDatabaseHelper.saveMovieList(categoryName, results.getMovies());
+                }else{
+                    mView.showEmptyView();
+                }
             }
 
             @Override
             public void successFromDatabase(Results results) {
                 mView.showProgress(false);
                 results.setMovies(changeDateFormatForDbResults( mDatabaseHelper.getRealm().copyFromRealm(results.getMovies())
-                        , mPreferenceHelper.getSharedpreferences().getString(Constants.DATE_FORMAT, Constants.MONTH_FIRST)));
+                        , mPreferenceHelper.getStringFromSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST)));
                 updateMovieList(results, current_page);
             }
 

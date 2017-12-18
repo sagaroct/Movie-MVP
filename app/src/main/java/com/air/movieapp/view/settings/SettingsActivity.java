@@ -75,10 +75,10 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
     }
 
     private void openSettingsPopup(String string) {
-        int dateFormatPref = mPreferenceHelper.getSharedpreferences().getString(Constants.DATE_FORMAT, Constants.MONTH_FIRST)
+        int dateFormatPref = mPreferenceHelper.getStringFromSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST)
                 .equals(Constants.MONTH_FIRST)
                 ? 0 : 1;
-        int releaseDateSortPref = mPreferenceHelper.getSharedpreferences().getString(Constants.RELEASE_DATE, Constants.ASCENDING)
+        int releaseDateSortPref = mPreferenceHelper.getStringFromSharedPreference(Constants.RELEASE_DATE, Constants.ASCENDING)
                 .equals(Constants.ASCENDING)
                 ? 0 : 1;
         if (string.equals(getString(R.string.date_format))) {
@@ -86,9 +86,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
                 @Override
                 public void onClick(DialogInterface dialogInterface, int pos) {
                     if(pos == 0){
-                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.DATE_FORMAT, Constants.MONTH_FIRST).commit();
+                        mPreferenceHelper.saveStringIntoSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST);
                     }else{
-                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.DATE_FORMAT, Constants.YEAR_FIRST).commit();
+                        mPreferenceHelper.saveStringIntoSharedPreference(Constants.DATE_FORMAT, Constants.YEAR_FIRST);
                     }
                 }
             });
@@ -97,9 +97,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
                 @Override
                 public void onClick(DialogInterface dialogInterface, int pos) {
                     if(pos == 0){
-                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.RELEASE_DATE, Constants.ASCENDING).commit();
+                        mPreferenceHelper.saveStringIntoSharedPreference(Constants.RELEASE_DATE, Constants.ASCENDING);
                     }else{
-                        mPreferenceHelper.getSharedPreferenceEditor().putString(Constants.RELEASE_DATE, Constants.DESCENDING).commit();
+                        mPreferenceHelper.saveStringIntoSharedPreference(Constants.RELEASE_DATE, Constants.DESCENDING);
                     }
                 }
             });

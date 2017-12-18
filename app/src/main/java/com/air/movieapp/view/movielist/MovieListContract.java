@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.air.movieapp.model.Movie;
-import com.air.movieapp.network.Service;
 import com.air.movieapp.view.base.BaseContract;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public interface MovieListContract  {
 
         void initScrollListener(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager);
 
-        void fetchMovies(String category, Service service);
+        void fetchMovies(String category);
     }
 
 }

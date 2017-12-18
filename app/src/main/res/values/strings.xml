@@ -29,4 +29,7 @@
         <item>@string/ascending</item>
         <item>@string/descending</item>
     </string-array>
+
+    <string name="empty">Empty</string>
+    <string name="no_internet">No Internet Connection</string>
 </resources>

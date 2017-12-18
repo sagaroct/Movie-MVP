@@ -33,6 +33,18 @@ public class Movie extends RealmObject{
 
     private String type;
 
+    public Movie() {
+    }
+
+    public Movie(int id, String title, String releaseDate, String overview, float voteAverage, String type) {
+        this.id = id;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.overview = overview;
+        this.voteAverage = voteAverage;
+        this.type = type;
+    }
+
     public String getType() {
         return type;
     }
