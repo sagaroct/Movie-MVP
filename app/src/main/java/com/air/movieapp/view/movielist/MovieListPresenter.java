@@ -1,10 +1,10 @@
 package com.air.movieapp.view.movielist;
 
-import android.content.SharedPreferences;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.air.movieapp.common.CommonUtils;
 import com.air.movieapp.common.Constants;
@@ -14,14 +14,16 @@ import com.air.movieapp.data.PreferenceHelper;
 import com.air.movieapp.model.Movie;
 import com.air.movieapp.model.Results;
 import com.air.movieapp.network.CacheType;
+import com.air.movieapp.network.MoviesRepository;
 import com.air.movieapp.network.NetworkError;
 import com.air.movieapp.network.ResponseCallback;
-import com.air.movieapp.network.MoviesRepository;
+import com.air.movieapp.rxbus.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import rx.Observer;
 
 /**
  * Created by sagar on 10/8/17.
@@ -39,18 +41,19 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     private String mCategory;
     private int mPageCount;
     private PreferenceHelper mPreferenceHelper;
-    private SharedPreferences.OnSharedPreferenceChangeListener mSharedePreferenceListener;
     private List<Movie> mMovies = new ArrayList<>();
+    private RxBus mRxBus;
 
 
     public MovieListPresenter(MoviesRepository moviesRepository, MovieListContract.View mView, LinearLayoutManager linearLayoutManager
-            , DatabaseHelper mDatabaseHelper, NetworkUtils mNetworkUtils, PreferenceHelper preferenceHelper) {
+            , DatabaseHelper mDatabaseHelper, NetworkUtils mNetworkUtils, PreferenceHelper preferenceHelper, RxBus rxBus) {
         this.mMoviesRepository = moviesRepository;
         this.mView = mView;
         this.mDatabaseHelper = mDatabaseHelper;
         this.mNetworkUtils = mNetworkUtils;
         this.mLinearLayoutManager = linearLayoutManager;
         this.mPreferenceHelper = preferenceHelper;
+        this.mRxBus = rxBus;
     }
 
     @Override
@@ -59,34 +62,28 @@ public class MovieListPresenter implements MovieListContract.Presenter {
 
     @Override
     public void onCreateView() {
-        mSharedePreferenceListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        mRxBus.toObservable().subscribe(new Observer<Object>() {
             @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String prefKey) {
-                if(prefKey.equalsIgnoreCase(Constants.DATE_FORMAT) || prefKey.equalsIgnoreCase(Constants.RELEASE_DATE)){
-                    mView.sortList(sharedPreferences.getString(prefKey,""));
-                    switch (sharedPreferences.getString(prefKey,"")){
-                        case Constants.MONTH_FIRST:
-                            changeDateFormat(Constants.MONTH_FIRST);
-                            break;
-                        case Constants.YEAR_FIRST:
-                            changeDateFormat(Constants.YEAR_FIRST);
-                            break;
-                        case Constants.ASCENDING:
-                            //TODO: Will be done in future.
-                            break;
-                        case Constants.DESCENDING:
-                            //TODO: Will be done in future.
-                            break;
-                        default:break;
+            public void onCompleted() {}
+
+            @Override
+            public void onError(Throwable e) {}
+
+            @Override
+            public void onNext(Object object) {
+                if (object instanceof Constants.DateFormat) {
+                    if(object.equals(Constants.DateFormat.MONTH_FIRST)){
+                        changeDateFormat(Constants.MONTH_FIRST);
+                    }else{
+                        changeDateFormat(Constants.YEAR_FIRST);
                     }
                 }
             }
-        };
+        });
     }
 
     @Override
     public void onResume() {
-        mPreferenceHelper.getSharedpreferences().registerOnSharedPreferenceChangeListener(mSharedePreferenceListener);
     }
 
     @Override
@@ -95,7 +92,6 @@ public class MovieListPresenter implements MovieListContract.Presenter {
 
     @Override
     public void onDestroy() {
-        mPreferenceHelper.getSharedpreferences().unregisterOnSharedPreferenceChangeListener(mSharedePreferenceListener);
     }
 
     @Override
@@ -111,6 +107,8 @@ public class MovieListPresenter implements MovieListContract.Presenter {
         mCategory = category;
         if (!mNetworkUtils.isNetworkConnected()) {
             mView.showNoInternetDialog();
+            mView.showEmptyView();
+            return;
         }
         if (TextUtils.isEmpty(category)) {
             mView.showEmptyView();
@@ -145,9 +143,8 @@ public class MovieListPresenter implements MovieListContract.Presenter {
                 updateMovieList(results, current_page);
             }
 
-
             @Override
-            public void failure(Call call, NetworkError error) {
+            public void failure(NetworkError error) {
                 mView.showProgress(false);
             }
 
@@ -189,6 +186,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     }
 
     private void changeDateFormat(String strFormat){
+        Log.d(TAG, "changeDateFormat: "+strFormat);
         mDatabaseHelper.getRealm().beginTransaction();
         for(Movie movie: mMovies){
             movie.setReleaseDate(CommonUtils.convertMovieDateFormat(movie.getReleaseDate(), strFormat));

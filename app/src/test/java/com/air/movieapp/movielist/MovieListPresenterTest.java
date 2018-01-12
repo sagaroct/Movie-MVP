@@ -10,30 +10,32 @@ import com.air.movieapp.model.Movie;
 import com.air.movieapp.model.Results;
 import com.air.movieapp.network.MoviesRepository;
 import com.air.movieapp.network.ResponseCallback;
+import com.air.movieapp.rxbus.RxBus;
 import com.air.movieapp.view.movielist.MovieListContract;
 import com.air.movieapp.view.movielist.MovieListPresenter;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by sagar on 14/12/17.
  */
 
+@RunWith(MockitoJUnitRunner.class)
 public class MovieListPresenterTest {
 
     private List<Movie> MOVIES = Arrays.asList(new Movie(123, "someTitle", "1992-12-10"
@@ -61,6 +63,9 @@ public class MovieListPresenterTest {
     @Mock
     private MovieListContract.View mView;
 
+    @Mock
+    private RxBus mRxBus;
+
     @Captor
     private ArgumentCaptor<ResponseCallback> mLoadMoviesCallbackCaptor;
 
@@ -70,17 +75,18 @@ public class MovieListPresenterTest {
     public void setupMovieListPresenter() {
         // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
         // inject the mocks in the test the initMocks method needs to be called.
-        MockitoAnnotations.initMocks(this);
+//        MockitoAnnotations.initMocks(this);
 
         // Get a reference to the class under test
         mPreferenceHelper.saveStringIntoSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST);
-        movieListPresenter = new MovieListPresenter(mMoviesRepository, mView, mLinearLayoutManager, mDatabaseHelper, mNetworkUtils, mPreferenceHelper);
+        movieListPresenter = new MovieListPresenter(mMoviesRepository, mView, mLinearLayoutManager, mDatabaseHelper, mNetworkUtils, mPreferenceHelper, mRxBus);
     }
 
     @Test
     public void loadMoviesFromRepositoryAndLoadIntoView() {
         // Given an initialized MovieListPresenter with initialized movies
         // When loading of Movies is requested
+        when(mNetworkUtils.isNetworkConnected()).thenReturn(true);
         movieListPresenter.fetchMovies(Constants.POPULAR);
 
         // Callback is captured and invoked with stubbed movies
@@ -96,6 +102,7 @@ public class MovieListPresenterTest {
 
     @Test
     public void loadEmptyMoviesIntoView() {
+        when(mNetworkUtils.isNetworkConnected()).thenReturn(true);
         // Given an initialized MovieListPresenter with initialized movies
         // When loading of Movies is requested
         movieListPresenter.fetchMovies(Constants.POPULAR);
@@ -114,9 +121,9 @@ public class MovieListPresenterTest {
     public void loadMoviesWithNoInternetError() {
         // Given an initialized MovieListPresenter with initialized movies
         // When loading of Movies is requested
+        when(mNetworkUtils.isNetworkConnected()).thenReturn(true);
         movieListPresenter.fetchMovies(Constants.POPULAR);
-        assertEquals(true, mNetworkUtils.isNetworkConnected());
-        Mockito.when(mNetworkUtils.isNetworkConnected()).thenReturn(false);
+//        assertEquals(true, mNetworkUtils.isNetworkConnected());
 //        doReturn(false).when(mNetworkUtils).isNetworkConnected();
 
         // No internet toast shown and emptyview displayed.

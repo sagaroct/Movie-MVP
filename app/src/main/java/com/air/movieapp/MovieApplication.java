@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.air.movieapp.data.DataModule;
 import com.air.movieapp.network.NetworkModule;
+import com.air.movieapp.rxbus.RxBusModule;
 
 /**
  * Created by sagar on 4/8/17.
@@ -13,7 +14,6 @@ import com.air.movieapp.network.NetworkModule;
 public class MovieApplication extends Application {
 
     public AppComponent mAppComponent;
-
 
     public static MovieApplication get(Context context) {
         return (MovieApplication) context.getApplicationContext();
@@ -24,6 +24,7 @@ public class MovieApplication extends Application {
         super.onCreate();
         mAppComponent = DaggerAppComponent.builder()
                 .networkModule(new NetworkModule(getApplicationContext()))
+                .rxBusModule(new RxBusModule())
                 .dataModule(new DataModule(getApplicationContext()))
                 .build();
     }

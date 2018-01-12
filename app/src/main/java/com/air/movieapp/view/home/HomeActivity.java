@@ -29,6 +29,7 @@ import com.air.movieapp.view.base.BaseActivity;
 import com.air.movieapp.view.settings.SettingsActivity;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 
 /**
@@ -46,6 +47,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     HomePresenter mHomePresenter;
 
     @Inject
+    @Named("RxService")
     MoviesRepository moviesRepository;
 
     @Override

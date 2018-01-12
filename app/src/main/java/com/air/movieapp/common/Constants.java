@@ -25,6 +25,9 @@ public class Constants {
     public static final String MONTH_FIRST = "month_first";
     public static final String YEAR_FIRST = "year_first";
 
-
+    public enum DateFormat {
+        MONTH_FIRST,
+        YEAR_FIRST
+    }
 
 }

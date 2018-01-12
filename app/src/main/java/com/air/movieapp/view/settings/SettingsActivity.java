@@ -1,7 +1,6 @@
 package com.air.movieapp.view.settings;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +16,7 @@ import com.air.movieapp.adapter.SettingsAdapter;
 import com.air.movieapp.common.CommonUtils;
 import com.air.movieapp.common.Constants;
 import com.air.movieapp.data.PreferenceHelper;
+import com.air.movieapp.rxbus.RxBus;
 
 import javax.inject.Inject;
 
@@ -33,8 +33,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
 
     @Inject
     PreferenceHelper mPreferenceHelper;
-    private SharedPreferences.OnSharedPreferenceChangeListener mSharedePreferenceListener;
 
+    @Inject
+    RxBus mRxBus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
         mSettingsAdapter = new SettingsAdapter(getResources().getStringArray(R.array.settings_array));
         mSettingsAdapter.setOnItemClickListener(this);
         mRecyclerViewSettings.setAdapter(mSettingsAdapter);
+        mRecyclerViewSettings.setHasFixedSize(true);
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -87,9 +89,12 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
                 public void onClick(DialogInterface dialogInterface, int pos) {
                     if(pos == 0){
                         mPreferenceHelper.saveStringIntoSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST);
+                        mRxBus.send(Constants.DateFormat.MONTH_FIRST);
                     }else{
                         mPreferenceHelper.saveStringIntoSharedPreference(Constants.DATE_FORMAT, Constants.YEAR_FIRST);
+                        mRxBus.send(Constants.DateFormat.YEAR_FIRST);
                     }
+                    dialogInterface.dismiss();
                 }
             });
         } else {
@@ -101,6 +106,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
                     }else{
                         mPreferenceHelper.saveStringIntoSharedPreference(Constants.RELEASE_DATE, Constants.DESCENDING);
                     }
+                    dialogInterface.dismiss();
                 }
             });
         }

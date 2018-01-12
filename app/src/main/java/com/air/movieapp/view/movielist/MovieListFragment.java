@@ -25,11 +25,13 @@ import com.air.movieapp.common.Constants;
 import com.air.movieapp.data.PreferenceHelper;
 import com.air.movieapp.model.Movie;
 import com.air.movieapp.network.MoviesRepository;
+import com.air.movieapp.rxbus.RxBus;
 import com.air.movieapp.view.base.BaseFragment;
 
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Common fragment for all movie listing
@@ -53,10 +55,14 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
     LinearLayoutManager mLinearLayoutManager;
 
     @Inject
+    @Named("RxService")
     MoviesRepository mMoviesRepository;
 
     @Inject
     PreferenceHelper mPreferenceHelper;
+
+    @Inject
+    RxBus mRxBus;
 
     @Override
     public void onCreate(Bundle state) {
@@ -133,6 +139,7 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
 
     @Override
     public void sortList(String prefValue) {
+        //Incomplete, should be completed.
         switch (prefValue){
             case Constants.MONTH_FIRST:
                 break;

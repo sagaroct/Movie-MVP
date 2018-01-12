@@ -10,6 +10,12 @@ import com.air.movieapp.model.Results;
 
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by sagar on 4/8/17.
  */
@@ -36,12 +42,14 @@ public class MoviesRepository {
     public void getMovies(String category, int page, ResponseCallback callback) {
         switch (mCacheType) {
             case NETWORK:
-                mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+//                mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+                getMoviesFromNetwork(category, page, callback);
                 break;
             case CACHE:
                 List<Movie> movies = mDatabaseHelper.getMovies(category);
                 if (movies == null || movies.isEmpty()) {
-                    mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+//                    mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+                    getMoviesFromNetwork(category, page, callback);
                 } else {
                     fetchMoviesFromCache(movies, page, callback);
                 }
@@ -51,9 +59,43 @@ public class MoviesRepository {
                 if (movies1 != null && !movies1.isEmpty()) {
                     fetchMoviesFromCache(movies1, page, callback);
                 }
-                mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+//                mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+                getMoviesFromNetwork(category, page, callback);
                 break;
         }
+    }
+
+    /**
+     * RxJava Parsing
+     */
+    private void getMoviesFromNetwork(String category, int page, final ResponseCallback callback) {
+        mMovieApiService.getMovies(category, RestConstants.AP_KEY, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends Results>>() {
+                    @Override
+                    public Observable<? extends Results> call(Throwable throwable) {
+                        return Observable.error(throwable);
+                    }
+                })
+                .subscribe(new Subscriber<Results>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.failure(new NetworkError(e));
+
+                    }
+
+                    @Override
+                    public void onNext(Results cityListResponse) {
+                        callback.successFromNetwork(cityListResponse);
+
+                    }
+                });
     }
 
     private void fetchMoviesFromCache(List<Movie> movies, int page, ResponseCallback callback) {

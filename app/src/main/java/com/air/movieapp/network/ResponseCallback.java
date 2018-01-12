@@ -5,11 +5,6 @@ import java.net.SocketTimeoutException;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-import static retrofit2.Response.success;
-
-/**
- * Created by shreesha on 30/12/16.
- */
 
 public abstract class ResponseCallback<T> implements Callback<T> {
 
@@ -17,7 +12,10 @@ public abstract class ResponseCallback<T> implements Callback<T> {
 
     public abstract void successFromDatabase(T t);
 
-    public abstract void failure(Call<T> call, NetworkError error);
+    //To be used for Retrofit without RxJava
+//    public abstract void failure(Call<T> call, NetworkError error);
+
+    public abstract void failure(NetworkError error);
 
     public abstract void onTimeOut(Call<T> call);
 
@@ -26,7 +24,6 @@ public abstract class ResponseCallback<T> implements Callback<T> {
         if (response != null && response.isSuccessful()) {
             successFromNetwork(response.body());
         }
-
     }
 
     @Override
@@ -34,7 +31,7 @@ public abstract class ResponseCallback<T> implements Callback<T> {
         if (t instanceof SocketTimeoutException) {
             onTimeOut(call);
         } else {
-            failure(call, new NetworkError(t));
+            failure(new NetworkError(t));
         }
     }
 }

@@ -39,7 +39,7 @@ public class CommonUtils {
     }
 
     public static void showDialogToChangeDateFormat(Context context, String title, CharSequence[] charSequence, int selectedPref, DialogInterface.OnClickListener onClickListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setSingleChoiceItems(charSequence, selectedPref, onClickListener);
         String negativeText = context.getString(android.R.string.cancel);
@@ -50,7 +50,7 @@ public class CommonUtils {
                         dialog.dismiss();
                     }
                 });
-        AlertDialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
