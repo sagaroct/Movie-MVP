@@ -6,7 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.air.movieapp.R;
-import com.air.movieapp.view.settings.SettingsActivity;
+import com.air.movieapp.ui.settings.SettingsActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

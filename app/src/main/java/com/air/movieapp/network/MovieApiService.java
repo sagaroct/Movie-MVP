@@ -7,7 +7,7 @@
 
 package com.air.movieapp.network;
 
-import com.air.movieapp.model.Results;
+import com.air.movieapp.data.model.Results;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

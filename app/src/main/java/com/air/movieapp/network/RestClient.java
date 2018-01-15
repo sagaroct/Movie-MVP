@@ -7,7 +7,7 @@
 
 package com.air.movieapp.network;
 
-import com.air.movieapp.common.RestConstants;
+import com.air.movieapp.util.common.RestConstants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

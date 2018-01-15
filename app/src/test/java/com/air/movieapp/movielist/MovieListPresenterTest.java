@@ -2,17 +2,17 @@ package com.air.movieapp.movielist;
 
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.air.movieapp.common.Constants;
-import com.air.movieapp.common.NetworkUtils;
-import com.air.movieapp.data.DatabaseHelper;
-import com.air.movieapp.data.PreferenceHelper;
-import com.air.movieapp.model.Movie;
-import com.air.movieapp.model.Results;
+import com.air.movieapp.util.common.Constants;
+import com.air.movieapp.util.common.NetworkUtils;
+import com.air.movieapp.data.local.DatabaseHelper;
+import com.air.movieapp.data.local.PreferenceHelper;
+import com.air.movieapp.data.model.Movie;
+import com.air.movieapp.data.model.Results;
 import com.air.movieapp.network.MoviesRepository;
 import com.air.movieapp.network.ResponseCallback;
-import com.air.movieapp.rxbus.RxBus;
-import com.air.movieapp.view.movielist.MovieListContract;
-import com.air.movieapp.view.movielist.MovieListPresenter;
+import com.air.movieapp.util.RxBus;
+import com.air.movieapp.ui.movielist.MovieListContract;
+import com.air.movieapp.ui.movielist.MovieListPresenter;
 
 import org.junit.Before;
 import org.junit.Test;

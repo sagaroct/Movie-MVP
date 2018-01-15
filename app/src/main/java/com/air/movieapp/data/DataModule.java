@@ -3,6 +3,9 @@ package com.air.movieapp.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.air.movieapp.data.local.DatabaseHelper;
+import com.air.movieapp.data.local.PreferenceHelper;
+
 import javax.inject.Singleton;
 
 import dagger.Module;

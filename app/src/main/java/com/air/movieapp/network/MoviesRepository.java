@@ -2,11 +2,11 @@ package com.air.movieapp.network;
 
 import android.content.SharedPreferences;
 
-import com.air.movieapp.common.NetworkUtils;
-import com.air.movieapp.common.RestConstants;
-import com.air.movieapp.data.DatabaseHelper;
-import com.air.movieapp.model.Movie;
-import com.air.movieapp.model.Results;
+import com.air.movieapp.util.common.NetworkUtils;
+import com.air.movieapp.util.common.RestConstants;
+import com.air.movieapp.data.local.DatabaseHelper;
+import com.air.movieapp.data.model.Movie;
+import com.air.movieapp.data.model.Results;
 
 import java.util.List;
 
