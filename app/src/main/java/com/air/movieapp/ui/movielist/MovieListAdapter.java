@@ -21,6 +21,8 @@ import java.util.List;
 /**
  * Created by sagar on 20/8/16.
  */
+
+// Common Adapter class for MovieListFragment.
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
 
     private List<Movie> mMovieList;

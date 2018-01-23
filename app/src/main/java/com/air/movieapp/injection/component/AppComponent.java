@@ -1,6 +1,6 @@
 package com.air.movieapp.injection.component;
 
-import com.air.movieapp.data.DataModule;
+import com.air.movieapp.injection.module.DataModule;
 import com.air.movieapp.injection.module.NetworkModule;
 import com.air.movieapp.injection.module.RxBusModule;
 import com.air.movieapp.injection.module.HomeModule;

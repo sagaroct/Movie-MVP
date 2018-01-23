@@ -3,7 +3,7 @@ package com.air.movieapp.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.air.movieapp.data.DataModule;
+import com.air.movieapp.injection.module.DataModule;
 import com.air.movieapp.injection.component.AppComponent;
 import com.air.movieapp.injection.component.DaggerAppComponent;
 import com.air.movieapp.injection.module.NetworkModule;

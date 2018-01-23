@@ -55,6 +55,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
+    }
+
+    private void initViews() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -131,10 +135,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     @Override
     public Context getContext() {
         return this;
-    }
-
-    @Override
-    public void showPopupMessage(String title, String message) {
     }
 
     @Override

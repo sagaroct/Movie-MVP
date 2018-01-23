@@ -80,6 +80,11 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
+        initViews(view);
+        return view;
+    }
+
+    private void initViews(View view) {
         mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         mMoviesRecyclerView = (RecyclerView) view.findViewById(R.id.rv_movie);
         mTvEmptyView = (TextView) view.findViewById(R.id.tv_empty_view);
@@ -87,19 +92,6 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
         mMoviesRecyclerView.setAdapter(mMovieListAdapter);
         mMovieListPresenter.initScrollListener(mMoviesRecyclerView, mLinearLayoutManager);
         mMovieListPresenter.fetchMovies(mType);
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mMovieListPresenter.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        mMovieListPresenter.onDestroy();
-        super.onDestroy();
     }
 
     @Override
@@ -109,10 +101,6 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
         }else{
             mProgressBar.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public void showPopupMessage(String title, String message) {
     }
 
     @Override

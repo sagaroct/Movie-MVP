@@ -9,24 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements IFragmentInteractionListener {
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActivityComponent();
     }
 
     protected abstract void setupActivityComponent();
-
-  /*  @Override
-    public void loadFragment(int fragmentContainerId, BaseFragment fragment, @Nullable String tag, int enterAnimId, int exitAnimId, BaseFragment.FragmentTransactionType fragmentTransactionType) {
-        performFragmentTranscation(fragmentContainerId, fragment, tag,
-                (enterAnimId == 0) ? 0 : enterAnimId,
-                (exitAnimId == 0) ? 0 : exitAnimId,
-                fragmentTransactionType);
-    }*/
-
-
 
     @Override
     public void loadFragment(int fragmentContainerId, BaseFragment fragment) {
@@ -61,7 +49,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IFragmen
             default:
                 replaceFragment(fragmentContainerId, fragment, tag, enterAnimId, exitAnimId);
         }
-
     }
 
     private void addToBackStackAndAdd(int fragmentContainerId, Fragment fragment, String tag, int enterAnimId, int exitAnimId) {

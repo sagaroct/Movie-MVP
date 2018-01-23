@@ -62,12 +62,18 @@ public class MovieListPresenter implements MovieListContract.Presenter {
 
     @Override
     public void onCreateView() {
+        subscribeForRxBusEvent();
+    }
+
+    private void subscribeForRxBusEvent() {
         mRxBus.toObservable().subscribe(new Observer<Object>() {
             @Override
             public void onCompleted() {}
 
             @Override
-            public void onError(Throwable e) {}
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: ", e);
+            }
 
             @Override
             public void onNext(Object object) {
@@ -114,7 +120,6 @@ public class MovieListPresenter implements MovieListContract.Presenter {
             mView.showEmptyView();
         } else {
             getMovies(category, 1);
-//            setPagination();
         }
     }
 
@@ -154,8 +159,6 @@ public class MovieListPresenter implements MovieListContract.Presenter {
             }
         });
     }
-
-
 
     private void updateMovieList(Results results, int current_page) {
         mMovies.addAll(results.getMovies());

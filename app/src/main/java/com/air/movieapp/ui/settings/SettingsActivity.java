@@ -26,10 +26,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
 
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
-    private RecyclerView mRecyclerViewSettings;
-    private SettingsAdapter mSettingsAdapter;
-    private Toolbar mToolbar;
-
     @Inject
     PreferenceHelper mPreferenceHelper;
 
@@ -41,13 +37,17 @@ public class SettingsActivity extends AppCompatActivity implements SettingsAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         MovieApplication.get(this).getAppComponent().inject(this);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        initViews();
+    }
+
+    private void initViews() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle(getString(R.string.settings));
-        mRecyclerViewSettings = (RecyclerView) findViewById(R.id.rv_settings);
+        RecyclerView mRecyclerViewSettings = (RecyclerView) findViewById(R.id.rv_settings);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerViewSettings.setLayoutManager(mLayoutManager);
-        mSettingsAdapter = new SettingsAdapter(getResources().getStringArray(R.array.settings_array));
+        SettingsAdapter mSettingsAdapter = new SettingsAdapter(getResources().getStringArray(R.array.settings_array));
         mSettingsAdapter.setOnItemClickListener(this);
         mRecyclerViewSettings.setAdapter(mSettingsAdapter);
         mRecyclerViewSettings.setHasFixedSize(true);

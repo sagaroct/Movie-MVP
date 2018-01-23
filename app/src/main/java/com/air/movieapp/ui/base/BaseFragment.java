@@ -42,6 +42,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    //For current functionality of app only this method is needed from BaseFragment.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

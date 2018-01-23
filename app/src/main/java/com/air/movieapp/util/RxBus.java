@@ -20,15 +20,4 @@ public class RxBus {
         bus.onNext(o);
     }
 
-   /* public void addObserver(Action1 action1) {
-        mSubscription = bus
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(action1);
-    }
-
-    public void removeObserver() {
-        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-            mSubscription.unsubscribe();
-        }
-    }*/
 }

@@ -10,8 +10,6 @@ public interface BaseContract {
 
         Context getContext();
 
-        void showPopupMessage(String title, String message);
-
         void showNoInternetDialog();
     }
 

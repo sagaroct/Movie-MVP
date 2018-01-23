@@ -1,4 +1,4 @@
-package com.air.movieapp.data;
+package com.air.movieapp.injection.module;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,19 +27,10 @@ public class DataModule {
     @Provides
     @Singleton
     public DatabaseHelper provideRealm() {
-
         // Initialize Realm
         Realm.init(mContext);
-        // configure Realm
-      /*  RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-              *//*  .name(Realm.DEFAULT_REALM_NAME)
-                .schemaVersion(0)*//*
-                .build();
-        Realm.setDefaultConfiguration(realmConfiguration);*/
-
         // Get a Realm instance for this thread
         Realm realm = Realm.getDefaultInstance();
-
         return new DatabaseHelper(realm);
     }
 

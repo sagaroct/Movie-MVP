@@ -10,14 +10,10 @@ import com.air.movieapp.network.CacheType;
 public class NetworkUtils {
 
     private Context mContext;
-    public static final String TOP_RATED = "top_rated";
-    public static final String POPULAR = "popular";
-    public static final String UPCOMING = "upcoming";
 
     public NetworkUtils(Context context) {
         this.mContext = context;
     }
-
 
     /**
      * Check if the network is connected
