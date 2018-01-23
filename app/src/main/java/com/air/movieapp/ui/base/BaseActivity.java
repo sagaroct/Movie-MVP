@@ -12,6 +12,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IFragmen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupActivityComponent();
     }
 
     protected abstract void setupActivityComponent();

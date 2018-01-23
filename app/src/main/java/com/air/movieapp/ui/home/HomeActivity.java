@@ -7,7 +7,6 @@
  */
 package com.air.movieapp.ui.home;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,9 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.air.movieapp.application.MovieApplication;
 import com.air.movieapp.R;
-import com.air.movieapp.util.common.Constants;
+import com.air.movieapp.application.MovieApplication;
 import com.air.movieapp.injection.module.HomeModule;
 import com.air.movieapp.network.CacheType;
 import com.air.movieapp.network.MoviesRepository;
@@ -89,14 +87,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 break;
         }
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK && requestCode == Constants.SETTINGS_REQUEST_CODE){
-
-        }
     }
 
     private void setNavigationDrawer() {

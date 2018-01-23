@@ -2,18 +2,16 @@ package com.air.movieapp.network;
 
 import android.content.SharedPreferences;
 
-import com.air.movieapp.util.common.NetworkUtils;
-import com.air.movieapp.util.common.RestConstants;
 import com.air.movieapp.data.local.DatabaseHelper;
 import com.air.movieapp.data.model.Movie;
 import com.air.movieapp.data.model.Results;
+import com.air.movieapp.util.common.NetworkUtils;
+import com.air.movieapp.util.common.RestConstants;
 
 import java.util.List;
 
-import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -72,28 +70,18 @@ public class MoviesRepository {
         mMovieApiService.getMovies(category, RestConstants.AP_KEY, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext(new Func1<Throwable, Observable<? extends Results>>() {
-                    @Override
-                    public Observable<? extends Results> call(Throwable throwable) {
-                        return Observable.error(throwable);
-                    }
-                })
                 .subscribe(new Subscriber<Results>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
+                    public void onCompleted() {}
 
                     @Override
                     public void onError(Throwable e) {
                         callback.failure(new NetworkError(e));
-
                     }
 
                     @Override
                     public void onNext(Results cityListResponse) {
                         callback.successFromNetwork(cityListResponse);
-
                     }
                 });
     }

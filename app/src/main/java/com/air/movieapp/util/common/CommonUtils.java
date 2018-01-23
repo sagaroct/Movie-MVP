@@ -69,9 +69,7 @@ public class CommonUtils {
         Date startDate;
         try {
             startDate = parseDateFormat.parse(strDate);
-            String newDateString = convertDateFormat.format(startDate);
-            System.out.println(newDateString);
-            return newDateString;
+            return convertDateFormat.format(startDate);
         } catch (ParseException e) {
             //If the date is already converted then parse exception is fired.
             return strDate;
@@ -93,9 +91,7 @@ public class CommonUtils {
         Date startDate;
         try {
             startDate = parseDateFormat.parse(strDate);
-            String newDateString = convertDateFormat.format(startDate);
-            System.out.println(newDateString);
-            return newDateString;
+            return convertDateFormat.format(startDate);
         } catch (ParseException | NullPointerException e) {
             e.printStackTrace();
         }
