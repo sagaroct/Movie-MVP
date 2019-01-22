@@ -3,11 +3,11 @@ package com.air.movieapp.injection.module;
 import android.content.Context;
 
 import com.air.movieapp.BuildConfig;
-import com.air.movieapp.util.common.NetworkUtils;
-import com.air.movieapp.util.common.RestConstants;
 import com.air.movieapp.data.local.DatabaseHelper;
 import com.air.movieapp.network.MovieApiService;
 import com.air.movieapp.network.MoviesRepository;
+import com.air.movieapp.util.common.NetworkUtils;
+import com.air.movieapp.util.common.RestConstants;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -17,18 +17,18 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
 @Module
 public class NetworkModule {
 
-    private Context mContext;
+//    private Context mContext;
 
-    public NetworkModule(Context context) {
-        this.mContext = context;
-    }
+ /*   public NetworkModule() {
+
+    }*/
 
     @Provides
     @Singleton
@@ -45,8 +45,7 @@ public class NetworkModule {
                 .baseUrl(RestConstants.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-//                .addConverterFactory(ScalarsConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
@@ -86,8 +85,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public NetworkUtils provideNetworkUtils() {
-        return new NetworkUtils(mContext);
+    public NetworkUtils provideNetworkUtils(Context context) {
+        return new NetworkUtils(context);
     }
 
     @Provides

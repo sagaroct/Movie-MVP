@@ -5,6 +5,7 @@ import com.air.movieapp.data.model.Movie;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class DatabaseHelper {
 
@@ -45,8 +46,14 @@ public class DatabaseHelper {
                 .findAll();
     }
 
-
     public void updateMovieList(List<Movie> movies){
         mRealm.copyToRealmOrUpdate(movies);
+    }
+
+    public void deleteAllMovies(String category){
+        RealmResults<Movie> results = mRealm.where(Movie.class).equalTo("type", category).findAll();
+        mRealm.beginTransaction();
+        results.deleteAllFromRealm();
+        mRealm.commitTransaction();
     }
 }

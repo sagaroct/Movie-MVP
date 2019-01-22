@@ -3,6 +3,7 @@ package com.air.movieapp.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.air.movieapp.injection.module.AppModule;
 import com.air.movieapp.injection.module.DataModule;
 import com.air.movieapp.injection.component.AppComponent;
 import com.air.movieapp.injection.component.DaggerAppComponent;
@@ -25,9 +26,10 @@ public class MovieApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mAppComponent = DaggerAppComponent.builder()
-                .networkModule(new NetworkModule(getApplicationContext()))
+                .networkModule(new NetworkModule())
+                .appModule(new AppModule(this))
                 .rxBusModule(new RxBusModule())
-                .dataModule(new DataModule(getApplicationContext()))
+                .dataModule(new DataModule())
                 .build();
     }
 

@@ -2,15 +2,15 @@ package com.air.movieapp.injection.module;
 
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.air.movieapp.ui.movielist.MovieListAdapter;
-import com.air.movieapp.util.common.NetworkUtils;
 import com.air.movieapp.data.local.DatabaseHelper;
 import com.air.movieapp.data.local.PreferenceHelper;
 import com.air.movieapp.data.model.Movie;
 import com.air.movieapp.network.MoviesRepository;
-import com.air.movieapp.util.RxBus;
+import com.air.movieapp.ui.movielist.MovieListAdapter;
 import com.air.movieapp.ui.movielist.MovieListContract;
 import com.air.movieapp.ui.movielist.MovieListPresenter;
+import com.air.movieapp.util.RxBus;
+import com.air.movieapp.util.common.NetworkUtils;
 
 import java.util.ArrayList;
 

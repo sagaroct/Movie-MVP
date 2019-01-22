@@ -1,14 +1,12 @@
 package com.air.movieapp.ui.movielist;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.air.movieapp.util.common.CommonUtils;
-import com.air.movieapp.util.common.Constants;
-import com.air.movieapp.util.common.NetworkUtils;
 import com.air.movieapp.data.local.DatabaseHelper;
 import com.air.movieapp.data.local.PreferenceHelper;
 import com.air.movieapp.data.model.Movie;
@@ -18,12 +16,16 @@ import com.air.movieapp.network.MoviesRepository;
 import com.air.movieapp.network.NetworkError;
 import com.air.movieapp.network.ResponseCallback;
 import com.air.movieapp.util.RxBus;
+import com.air.movieapp.util.common.CommonUtils;
+import com.air.movieapp.util.common.Constants;
+import com.air.movieapp.util.common.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
-import rx.Observer;
 
 /**
  * Created by sagar on 10/8/17.
@@ -36,14 +38,14 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     private MovieListContract.View mView;
     private DatabaseHelper mDatabaseHelper;
     private NetworkUtils mNetworkUtils;
-    private MoviesRepository mMoviesRepository;
     private LinearLayoutManager mLinearLayoutManager;
     private String mCategory;
     private int mPageCount;
-    private PreferenceHelper mPreferenceHelper;
     private List<Movie> mMovies = new ArrayList<>();
+    private MoviesRepository mMoviesRepository;
+    private PreferenceHelper mPreferenceHelper;
     private RxBus mRxBus;
-
+    private Disposable mDisposable;
 
     public MovieListPresenter(MoviesRepository moviesRepository, MovieListContract.View mView, LinearLayoutManager linearLayoutManager
             , DatabaseHelper mDatabaseHelper, NetworkUtils mNetworkUtils, PreferenceHelper preferenceHelper, RxBus rxBus) {
@@ -65,22 +67,15 @@ public class MovieListPresenter implements MovieListContract.Presenter {
         subscribeForRxBusEvent();
     }
 
+    @SuppressLint("CheckResult")
     private void subscribeForRxBusEvent() {
-        mRxBus.toObservable().subscribe(new Observer<Object>() {
+        mDisposable = mRxBus.toObservable().subscribe(new Consumer<Object>() {
             @Override
-            public void onCompleted() {}
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "onError: ", e);
-            }
-
-            @Override
-            public void onNext(Object object) {
+            public void accept(Object object) throws Exception {
                 if (object instanceof Constants.DateFormat) {
-                    if(object.equals(Constants.DateFormat.MONTH_FIRST)){
+                    if (object.equals(Constants.DateFormat.MONTH_FIRST)) {
                         changeDateFormat(Constants.MONTH_FIRST);
-                    }else{
+                    } else {
                         changeDateFormat(Constants.YEAR_FIRST);
                     }
                 }
@@ -101,6 +96,11 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     }
 
     @Override
+    public void onDestroyView() {
+        mDisposable.dispose();
+    }
+
+    @Override
     public void initScrollListener(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager) {
         this.mLinearLayoutManager = linearLayoutManager;
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -116,7 +116,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
             mView.showEmptyView();
             return;
         }
-        if (TextUtils.isEmpty(category)) {
+        if (category == null || category.equals("")) {
             mView.showEmptyView();
         } else {
             getMovies(category, 1);
@@ -130,12 +130,12 @@ public class MovieListPresenter implements MovieListContract.Presenter {
             @Override
             public void successFromNetwork(Results results) {
                 mView.showProgress(false);
-                if(results.getMovies().size()>0) {
+                if (results.getMovies().size() > 0) {
                     results.setMovies(changeDateFormatForApiResults(results.getMovies()
                             , mPreferenceHelper.getStringFromSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST)));
                     updateMovieList(results, current_page);
                     mDatabaseHelper.saveMovieList(categoryName, results.getMovies());
-                }else{
+                } else {
                     mView.showEmptyView();
                 }
             }
@@ -143,7 +143,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
             @Override
             public void successFromDatabase(Results results) {
                 mView.showProgress(false);
-                results.setMovies(changeDateFormatForDbResults( mDatabaseHelper.getRealm().copyFromRealm(results.getMovies())
+                results.setMovies(changeDateFormatForDbResults(mDatabaseHelper.getRealm().copyFromRealm(results.getMovies())
                         , mPreferenceHelper.getStringFromSharedPreference(Constants.DATE_FORMAT, Constants.MONTH_FIRST)));
                 updateMovieList(results, current_page);
             }
@@ -188,10 +188,10 @@ public class MovieListPresenter implements MovieListContract.Presenter {
         };
     }
 
-    private void changeDateFormat(String strFormat){
-        Log.d(TAG, "changeDateFormat: "+strFormat);
+    private void changeDateFormat(String strFormat) {
+        Log.d(TAG, "changeDateFormat: " + strFormat);
         mDatabaseHelper.getRealm().beginTransaction();
-        for(Movie movie: mMovies){
+        for (Movie movie : mMovies) {
             movie.setReleaseDate(CommonUtils.convertMovieDateFormat(movie.getReleaseDate(), strFormat));
         }
         mDatabaseHelper.updateMovieList(mMovies);
@@ -201,7 +201,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
 
     private List<Movie> changeDateFormatForDbResults(List<Movie> movies, String strFormat) {
         mDatabaseHelper.getRealm().beginTransaction();
-        for(Movie movie: movies){
+        for (Movie movie : movies) {
             movie.setReleaseDate(CommonUtils.convertMovieDateFormat(movie.getReleaseDate(), strFormat));
         }
         mDatabaseHelper.updateMovieList(movies);
@@ -210,7 +210,7 @@ public class MovieListPresenter implements MovieListContract.Presenter {
     }
 
     private List<Movie> changeDateFormatForApiResults(List<Movie> movies, String strFormat) {
-        for(Movie movie: movies){
+        for (Movie movie : movies) {
             movie.setReleaseDate(CommonUtils.convertMovieDateFormatForApiResults(movie.getReleaseDate(), strFormat));
         }
         return movies;

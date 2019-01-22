@@ -23,6 +23,7 @@ public interface MovieListContract  {
 
         void sortList(String prefValue);
 
+        void refreshList(List<Movie> movies);
         void refreshList();
     }
 
@@ -32,6 +33,8 @@ public interface MovieListContract  {
         void initScrollListener(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager);
 
         void fetchMovies(String category);
+
+        void onDestroyView();
     }
 
 }

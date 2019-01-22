@@ -18,17 +18,17 @@ public class DataModule {
 
     private static final String SHARED_PREFERENCE_FILE_NAME = "movie_app_pref";
 
-    private Context mContext;
+//    private Context mContext;
 
-    public DataModule(Context mContext) {
+    /*public DataModule(Context mContext) {
         this.mContext = mContext;
-    }
+    }*/
 
     @Provides
     @Singleton
-    public DatabaseHelper provideRealm() {
+    public DatabaseHelper provideRealm(Context context) {
         // Initialize Realm
-        Realm.init(mContext);
+        Realm.init(context);
         // Get a Realm instance for this thread
         Realm realm = Realm.getDefaultInstance();
         return new DatabaseHelper(realm);
@@ -36,8 +36,8 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public SharedPreferences provideSharedPreferences() {
-        return mContext.getSharedPreferences(
+    public SharedPreferences provideSharedPreferences(Context context) {
+        return context.getSharedPreferences(
                 SHARED_PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
     }
 

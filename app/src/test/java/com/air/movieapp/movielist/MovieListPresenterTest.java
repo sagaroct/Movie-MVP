@@ -121,7 +121,7 @@ public class MovieListPresenterTest {
     public void loadMoviesWithNoInternetError() {
         // Given an initialized MovieListPresenter with initialized movies
         // When loading of Movies is requested
-        when(mNetworkUtils.isNetworkConnected()).thenReturn(true);
+        when(mNetworkUtils.isNetworkConnected()).thenReturn(false);
         movieListPresenter.fetchMovies(Constants.POPULAR);
 //        assertEquals(true, mNetworkUtils.isNetworkConnected());
 //        doReturn(false).when(mNetworkUtils).isNetworkConnected();

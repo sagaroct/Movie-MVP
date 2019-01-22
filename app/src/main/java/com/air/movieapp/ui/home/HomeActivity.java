@@ -68,7 +68,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
         setNavigationDrawer();
-        moviesRepository.setCacheType(CacheType.CACHE);
+//        moviesRepository.setCacheType(CacheType.CACHE);
     }
 
     @Override

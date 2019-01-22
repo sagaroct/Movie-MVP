@@ -10,9 +10,11 @@ import com.air.movieapp.util.common.RestConstants;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by sagar on 4/8/17.
@@ -37,7 +39,7 @@ public class MoviesRepository {
         this.mCacheType = cacheType;
     }
 
-    public void getMovies(String category, int page, ResponseCallback callback) {
+    public void getMovies(String category, int page, ResponseCallback<Results> callback) {
         switch (mCacheType) {
             case NETWORK:
 //                mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
@@ -45,12 +47,12 @@ public class MoviesRepository {
                 break;
             case CACHE:
                 List<Movie> movies = mDatabaseHelper.getMovies(category);
-                if (movies == null || movies.isEmpty()) {
+                /*if (movies == null || movies.isEmpty()) {
 //                    mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
                     getMoviesFromNetwork(category, page, callback);
-                } else {
+                } else {*/
                     fetchMoviesFromCache(movies, page, callback);
-                }
+//                }
                 break;
             case NETWORK_AND_CACHE:
                 List<Movie> movies1 = mDatabaseHelper.getMovies(category);
@@ -58,6 +60,7 @@ public class MoviesRepository {
                     fetchMoviesFromCache(movies1, page, callback);
                 }
 //                mMovieApiService.getMovies(category, RestConstants.AP_KEY, page).enqueue(callback);
+                mDatabaseHelper.deleteAllMovies(category);
                 getMoviesFromNetwork(category, page, callback);
                 break;
         }
@@ -70,9 +73,15 @@ public class MoviesRepository {
         mMovieApiService.getMovies(category, RestConstants.AP_KEY, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Results>() {
+                .subscribe(new Observer<Results>() {
                     @Override
-                    public void onCompleted() {}
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(Results results) {
+                        callback.successFromNetwork(results);
+                    }
 
                     @Override
                     public void onError(Throwable e) {
@@ -80,8 +89,8 @@ public class MoviesRepository {
                     }
 
                     @Override
-                    public void onNext(Results cityListResponse) {
-                        callback.successFromNetwork(cityListResponse);
+                    public void onComplete() {
+
                     }
                 });
     }

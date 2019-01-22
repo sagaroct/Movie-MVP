@@ -18,20 +18,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.air.movieapp.application.MovieApplication;
 import com.air.movieapp.R;
-import com.air.movieapp.util.common.Constants;
-import com.air.movieapp.data.local.PreferenceHelper;
+import com.air.movieapp.application.MovieApplication;
 import com.air.movieapp.data.model.Movie;
 import com.air.movieapp.injection.module.MovieListModule;
-import com.air.movieapp.network.MoviesRepository;
-import com.air.movieapp.util.RxBus;
 import com.air.movieapp.ui.base.BaseFragment;
+import com.air.movieapp.util.common.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * Common fragment for all movie listing
@@ -54,16 +51,6 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
     @Inject
     LinearLayoutManager mLinearLayoutManager;
 
-    @Inject
-    @Named("RxService")
-    MoviesRepository mMoviesRepository;
-
-    @Inject
-    PreferenceHelper mPreferenceHelper;
-
-    @Inject
-    RxBus mRxBus;
-
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -82,6 +69,12 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
         initViews(view);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        mMovieListPresenter.onDestroyView();
+        super.onDestroyView();
     }
 
     private void initViews(View view) {
@@ -139,6 +132,12 @@ public class MovieListFragment extends BaseFragment implements MovieListContract
                 break;
             default:break;
         }
+    }
+
+    @Override
+    public void refreshList(List<Movie> movies) {
+//        mMovieListAdapter.notifyDataSetChanged();
+        mMovieListAdapter.update((ArrayList<Movie>) movies);
     }
 
     @Override
